@@ -1,0 +1,257 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* 深色主题（默认） */
+  :root {
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #12121a;
+    --bg-tertiary: #1a1a25;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --border-color: #2d2d3a;
+    --accent-primary: #0ea5e9;
+    --accent-secondary: #d946ef;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  /* 浅色主题 */
+  :root.light {
+    --bg-primary: #f8fafc;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #f1f5f9;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    --border-color: #e2e8f0;
+    --accent-primary: #0284c7;
+    --accent-secondary: #c026d3;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  /* 跟随系统主题 */
+  @media (prefers-color-scheme: light) {
+    :root:not(.dark) {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --bg-tertiary: #f1f5f9;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #94a3b8;
+      --border-color: #e2e8f0;
+      --accent-primary: #0284c7;
+      --accent-secondary: #c026d3;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+      --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-color) transparent;
+  }
+
+  *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 3px;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background: #3d3d4a;
+  }
+
+  :root.light *::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+  }
+
+  :root.light *::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+
+  body {
+    @apply bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+  }
+
+  ::selection {
+    @apply bg-primary-500/30;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200
+           disabled:opacity-50 disabled:cursor-not-allowed
+           focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[var(--bg-primary)];
+  }
+
+  .btn-primary {
+    @apply btn bg-gradient-to-r from-primary-500 to-primary-600 text-white
+           hover:from-primary-600 hover:to-primary-700
+           focus:ring-primary-500;
+  }
+
+  .btn-secondary {
+    @apply btn bg-[var(--bg-tertiary)] text-[var(--text-primary)]
+           border border-[var(--border-color)]
+           hover:bg-[var(--border-color)]
+           focus:ring-[var(--border-color)];
+  }
+
+  .btn-ghost {
+    @apply btn bg-transparent text-[var(--text-secondary)]
+           hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)]
+           focus:ring-[var(--border-color)];
+  }
+
+  .btn-danger {
+    @apply btn bg-red-500/10 text-red-400 border border-red-500/30
+           hover:bg-red-500/20
+           focus:ring-red-500;
+  }
+
+  .input {
+    @apply w-full px-4 py-3 rounded-lg
+           bg-[var(--bg-secondary)] border border-[var(--border-color)]
+           text-[var(--text-primary)] placeholder:text-[var(--text-muted)]
+           focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500
+           transition-colors duration-200;
+  }
+
+  .card {
+    @apply bg-[var(--bg-secondary)] border border-[var(--border-color)]
+           rounded-xl p-6;
+    box-shadow: var(--card-shadow);
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-primary {
+    @apply badge bg-primary-500/20 text-primary-400;
+  }
+
+  .badge-success {
+    @apply badge bg-emerald-500/20 text-emerald-400;
+  }
+
+  .badge-warning {
+    @apply badge bg-amber-500/20 text-amber-400;
+  }
+
+  .badge-error {
+    @apply badge bg-red-500/20 text-red-400;
+  }
+
+  .link {
+    @apply text-primary-400 hover:text-primary-300 transition-colors;
+  }
+}
+
+@layer utilities {
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-400 via-accent-400 to-primary-400 
+           bg-clip-text text-transparent bg-[length:200%_auto]
+           animate-[gradient_3s_linear_infinite];
+  }
+
+  .glass {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10;
+  }
+  
+  :root.light .glass {
+    @apply bg-black/5 border-black/10;
+  }
+
+  .glow {
+    box-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
+  }
+
+  .glow-accent {
+    box-shadow: 0 0 20px rgba(217, 70, 239, 0.3);
+  }
+  
+  :root.light .glow {
+    box-shadow: 0 0 20px rgba(2, 132, 199, 0.25);
+  }
+  
+  :root.light .glow-accent {
+    box-shadow: 0 0 20px rgba(192, 38, 211, 0.25);
+  }
+}
+
+@keyframes gradient {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Markdown 样式 */
+.markdown-content {
+  @apply max-w-none;
+}
+
+.markdown-content h1 {
+  @apply text-2xl font-bold text-[var(--text-primary)] border-b border-[var(--border-color)] pb-2 mb-4;
+}
+
+.markdown-content h2 {
+  @apply text-xl font-semibold text-[var(--text-primary)] mt-6 mb-3;
+}
+
+.markdown-content h3 {
+  @apply text-lg font-medium text-[var(--text-primary)] mt-4 mb-2;
+}
+
+.markdown-content p {
+  @apply text-[var(--text-secondary)] leading-relaxed mb-4;
+}
+
+.markdown-content ul, .markdown-content ol {
+  @apply text-[var(--text-secondary)] pl-5 mb-4 space-y-1;
+}
+
+.markdown-content li {
+  @apply leading-relaxed;
+}
+
+.markdown-content code {
+  @apply bg-[var(--bg-tertiary)] text-primary-400 px-1.5 py-0.5 rounded text-sm font-mono;
+}
+
+.markdown-content pre {
+  @apply bg-[var(--bg-tertiary)] rounded-lg p-4 overflow-x-auto mb-4;
+}
+
+.markdown-content pre code {
+  @apply bg-transparent p-0;
+}
+
+.markdown-content blockquote {
+  @apply border-l-4 border-primary-500 pl-4 italic text-[var(--text-muted)];
+}
+
+.markdown-content table {
+  @apply w-full border-collapse mb-4;
+}
+
+.markdown-content th, .markdown-content td {
+  @apply border border-[var(--border-color)] px-4 py-2 text-left;
+}
+
+.markdown-content th {
+  @apply bg-[var(--bg-tertiary)] font-medium;
+}
